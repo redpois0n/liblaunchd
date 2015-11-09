@@ -4,6 +4,7 @@ public class Agent {
 	
 	private String label;
 	private String[] programArguments;
+	private Env[] envs;
 	
 	public Agent(String label) {
 		this.label = label;
@@ -19,7 +20,7 @@ public class Agent {
 		sb.append("		<string>" + label + "</string>\n");
 		
 		if (programArguments.length <= 1) {
-			sb.append("		<key>Program</key>");
+			sb.append("		<key>Program</key>\n");
 			sb.append("		<string>" + programArguments[0] + "</string>\n");
 		} else {
 			sb.append("		<key>ProgramArguments</key>\n");
@@ -30,6 +31,18 @@ public class Agent {
 			}
 			
 			sb.append("		</array>\n");
+		}
+		
+		if (envs != null && envs.length > 0) {
+			sb.append("		<key>EnvironmentVariables</key>\n");
+			sb.append("		<dict>\n");
+			
+			for (Env e : envs) {
+				sb.append("			<key>" + e.getKey() + "</key>\n");
+				sb.append("			<string>" + e.getValue() + "</string>\n");
+			}
+			
+			sb.append("		</dict>\n");
 		}
 		
 		sb.append("		<key>RunAtLoad</key>\n");
@@ -63,6 +76,14 @@ public class Agent {
 
 	public void setProgramArguments(String[] program) {
 		this.programArguments = program;
+	}
+
+	public Env[] getEnvironmentVariables() {
+		return envs;
+	}
+
+	public void setEnvironmentVariables(Env[] env) {
+		this.envs = env;
 	}
 
 }
