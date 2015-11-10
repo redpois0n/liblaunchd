@@ -1,6 +1,12 @@
 package liblaunchd;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Agent {
+	
+	private List<Entry> list = new ArrayList<Entry>(); 
+	private Dict root = new Dict();
 	
 	private String label;
 	private String[] programArguments;
@@ -8,46 +14,32 @@ public class Agent {
 	
 	public Agent(String label) {
 		this.label = label;
+		init();
+	}
+	
+	private final void init() {
+		root.getEntries().add(new Key("Label"));
+		root.getEntries().add(new String0(label));
+	}
+	
+	public Dict getRoot() {
+		return root;
 	}
 	
 	public String build() {
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("<plist version=\"1.0\">\n");
-		sb.append("	<dict>\n");
-		
-		sb.append("		<key>Label</key>\n");
-		sb.append("		<string>" + label + "</string>\n");
-		
-		if (programArguments.length <= 1) {
-			sb.append("		<key>Program</key>\n");
-			sb.append("		<string>" + programArguments[0] + "</string>\n");
-		} else {
-			sb.append("		<key>ProgramArguments</key>\n");
-			sb.append("		<array>\n");
 
-			for (String arg : programArguments) {
-				sb.append("			<string>" + arg + "</string>\n");
+		for (Entry e : list) {
+			sb.append("<" + e.toString() + ">");
+			if (e.newLine()) {
+				sb.append("\n");
 			}
-			
-			sb.append("		</array>\n");
+			sb.append(e.getData());
+			sb.append("</" + e.toString() + ">\n");
 		}
 		
-		if (envs != null && envs.length > 0) {
-			sb.append("		<key>EnvironmentVariables</key>\n");
-			sb.append("		<dict>\n");
-			
-			for (Env e : envs) {
-				sb.append("			<key>" + e.getKey() + "</key>\n");
-				sb.append("			<string>" + e.getValue() + "</string>\n");
-			}
-			
-			sb.append("		</dict>\n");
-		}
-		
-		sb.append("		<key>RunAtLoad</key>\n");
-		sb.append("		<true/>\n");
-		sb.append("	</dict>\n");
 		sb.append("</plist>\n");
 	
 		return sb.toString();
