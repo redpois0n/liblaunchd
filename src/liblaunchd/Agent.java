@@ -9,8 +9,6 @@ public class Agent {
 	private Dict root = new Dict();
 	
 	private String label;
-	private String[] programArguments;
-	private Env[] envs;
 	
 	public Agent(String label) {
 		this.label = label;
@@ -18,6 +16,7 @@ public class Agent {
 	}
 	
 	private final void init() {
+		list.add(root);
 		root.getEntries().add(new Key("Label"));
 		root.getEntries().add(new String0(label));
 	}
@@ -41,7 +40,7 @@ public class Agent {
 		}
 		
 		sb.append("</plist>\n");
-	
+			
 		return sb.toString();
 	}
 
@@ -52,30 +51,4 @@ public class Agent {
 	public void setLabel(String label) {
 		this.label = label;
 	}
-	
-	public String getProgram() {
-		return programArguments.length == 0 ? null : programArguments[0];
-	}
-	
-	public void setProgram(String program) {
-		this.programArguments = new String[1];
-		this.programArguments[0] = program;
-	}
-
-	public String[] getProgramArguments() {
-		return programArguments;
-	}
-
-	public void setProgramArguments(String[] program) {
-		this.programArguments = program;
-	}
-
-	public Env[] getEnvironmentVariables() {
-		return envs;
-	}
-
-	public void setEnvironmentVariables(Env[] env) {
-		this.envs = env;
-	}
-
 }
