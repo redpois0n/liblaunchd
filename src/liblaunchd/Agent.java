@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Agent {
+
+	public static final String KEY_LABEL = "Label";
+	public static final String KEY_PROGRAM = "Program";
+	public static final String KEY_PROGRAM_ARGUMENTS = "ProgramArguments";
 	
 	private List<Entry> list = new ArrayList<Entry>(); 
 	private Dict root = new Dict();
@@ -20,7 +24,7 @@ public class Agent {
 	 */
 	private final void init() {
 		list.add(root);
-		root.getEntries().add(new Key("Label"));
+		root.getEntries().add(new Key(KEY_LABEL));
 		root.getEntries().add(new String0(label));
 	}
 	
