@@ -15,6 +15,9 @@ public class Agent {
 		init();
 	}
 	
+	/**
+	 * Add label key directly (required)
+	 */
 	private final void init() {
 		list.add(root);
 		root.getEntries().add(new Key("Label"));
