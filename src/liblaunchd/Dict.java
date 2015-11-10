@@ -37,5 +37,14 @@ public class Dict extends Entry {
 	public boolean newLine() {
 		return true;
 	}
+	
+	
+	public void add(Entry e) {
+		entries.add(e);
+	}
+	
+	public void add(String s) {
+		entries.add(new StringEntry(s));
+	}
 
 }
