@@ -25,11 +25,19 @@ public class Agent {
 	private final void init() {
 		list.add(root);
 		root.getEntries().add(new Key(KEY_LABEL));
-		root.getEntries().add(new String0(label));
+		root.getEntries().add(new StringEntry(label));
 	}
 	
 	public Dict getRoot() {
 		return root;
+	}
+	
+	public void add(Entry e) {
+		root.getEntries().add(e);
+	}
+	
+	public void add(String s) {
+		root.getEntries().add(new StringEntry(s));
 	}
 	
 	public String build() {

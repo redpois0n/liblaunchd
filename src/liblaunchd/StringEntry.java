@@ -1,10 +1,10 @@
 package liblaunchd;
 
-public class String0 extends Entry {
+public class StringEntry extends Entry {
 	
 	private String str;
 	
-	public String0(String str) {
+	public StringEntry(String str) {
 		this.str = str;
 	}
 
